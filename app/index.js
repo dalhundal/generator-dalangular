@@ -67,11 +67,24 @@ var DalangularGenerator = yeoman.generators.Base.extend({
 
 	git: function() {
 		if (this.gitInit) {
+			var addFilesToGit = [
+				'.gitignore',
+				'.bowerrc',
+				'.editorconfig',
+				'.jshintrc',
+				'README.md',
+				'application',
+				'bower.json',
+				'gulpfile.js',
+				'gulpfile.json',
+				'index.html',
+				'package.json'
+			];
 			console.log("Initialising git repository");
 			var exec = require('child_process').exec;
 			exec('git init',function(error, stdout) {
 				if (error) return console.log("Failed to intialise git repository");
-				exec('git add .gitignore',function(error, stdout) {
+				exec('git add '+addFilesToGit.join(' '),function(error, stdout) {
 					if (error) return console.log("Failed to add .gitignore to repository");
 					exec('git commit -va -m "Initial commit"',function(error,stdout) {
 						if (error) return console.log("Failed to create inital commit");

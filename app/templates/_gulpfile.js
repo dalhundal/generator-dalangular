@@ -77,13 +77,13 @@ gulp.task('directiveTemplates',function() {
 	if (gulpConfig.liveReload.enabled) stream.pipe(gulpLiveReload(gulpConfig.liveReload.port));
 });
 
-gulp.task('ensureBuildDirectory',function() {
-	fs.mkdirSync(paths.build);
-	fs.writeFileSync(paths.build+'/viewTemplates.js','angular.module("app.viewTemplates", []);');
-	fs.writeFileSync(paths.build+'/directiveTemplates.js','angular.module("app.directiveTemplates", []);');
+gulp.task('ensureTemplates',function() {
+	if (!fs.existsSync(paths.build)) fs.mkdirSync(paths.build);
+	if (!fs.existsSync(paths.build+'/viewTemplates.js')) fs.writeFileSync(paths.build+'/viewTemplates.js','angular.module("app.viewTemplates", []);');
+	if (!fs.existsSync(paths.build+'/directiveTemplates.js')) fs.writeFileSync(paths.build+'/directiveTemplates.js','angular.module("app.directiveTemplates", []);');
 })
 
-gulp.task('templates', ['ensureBuildDirectory','viewTemplates','directiveTemplates']);
+gulp.task('templates', ['viewTemplates','directiveTemplates','ensureTemplates']);
 
 gulp.task('styles',function() {
 	var stream = gulp.src(paths.styles)
