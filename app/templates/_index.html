@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="application/build/application.min.css"></link>
+		<title><%= appName %></title>
+	</head>
+	<body>
+		<div ui-view></div>
+		<script src="libs/bower_components/angular/angular.js"></script>
+		<script src="libs/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<script src="libs/bower_components/requirejs/require.js" data-main="application/core/main.js"></script>
+	</body>
+</html>

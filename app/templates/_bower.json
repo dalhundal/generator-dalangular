@@ -1,0 +1,10 @@
+{
+	"name": "<%= _.slugify(appName) %>",
+	"version": "0.0.1",
+	"dependencies": {
+		"angular": "~1.2.13",
+		"requirejs": "~2.1.11",
+		"requirejs-domready": "~2.0.1",
+		"angular-ui-router": "0.2.8-bowratic-tedium"
+	}
+}

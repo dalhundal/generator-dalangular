@@ -1,0 +1,6 @@
+{
+	"liveReload": {
+		"enabled": true,
+		"port": 35729
+	}
+}
