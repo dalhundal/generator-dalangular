@@ -51,12 +51,11 @@ var errorHandler = function (err) {
 
 var buildCount = 1;
 gulp.task('message',function() {
-	console.log("<%= appName.toUpperCase() %> BUILD %d ".blue.inverse,buildCount++);
+	console.log("DISKINDEXERWEB BUILD %d ".blue.inverse,buildCount++);
 	console.log(new Date().toString().blue.inverse);
 })
 
 gulp.task('viewTemplates',function() {
-	fs.writeFileSync(paths.build+'/viewTemplates.js','angular.module("app.viewTemplates", []);',{flag:'w'});
 	var stream = gulp.src(paths.viewTemplates)
 		.pipe(gulpTemplateCache('viewTemplates.js',{
 			root: 'application/views',
@@ -68,7 +67,6 @@ gulp.task('viewTemplates',function() {
 });
 
 gulp.task('directiveTemplates',function() {
-	fs.writeFileSync(paths.build+'/directiveTemplates.js','angular.module("app.directiveTemplates", []);',{flag:'w'});
 	var stream = gulp.src(paths.directiveTemplates)
 		.pipe(gulpTemplateCache('directiveTemplates.js',{
 			root: 'application/directives',
@@ -79,7 +77,13 @@ gulp.task('directiveTemplates',function() {
 	if (gulpConfig.liveReload.enabled) stream.pipe(gulpLiveReload(gulpConfig.liveReload.port));
 });
 
-gulp.task('templates', ['viewTemplates','directiveTemplates']);
+gulp.task('ensureBuildDirectory',function() {
+	fs.mkdirSync(paths.build);
+	fs.writeFileSync(paths.build+'/viewTemplates.js','angular.module("app.viewTemplates", []);');
+	fs.writeFileSync(paths.build+'/directiveTemplates.js','angular.module("app.directiveTemplates", []);');
+})
+
+gulp.task('templates', ['ensureBuildDirectory','viewTemplates','directiveTemplates']);
 
 gulp.task('styles',function() {
 	var stream = gulp.src(paths.styles)
